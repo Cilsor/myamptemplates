@@ -23,9 +23,9 @@ New-Item -ItemType Directory -Force -Path $StorageDir | Out-Null
 function Get-KvpValue([string]$Path, [string]$Key) {
     if (-not (Test-Path -LiteralPath $Path)) { return "" }
     $escaped = [regex]::Escape($Key)
-    $matches = Get-Content -LiteralPath $Path | Where-Object { $_ -match "^\s*$escaped\s*=" }
-    if (-not $matches) { return "" }
-    return (($matches[-1] -split "=", 2)[1]).Trim()
+    $found = @(Get-Content -LiteralPath $Path | Where-Object { $_ -match "^\s*$escaped\s*=" })
+    if ($found.Count -eq 0) { return "" }
+    return (($found[-1] -split "=", 2)[1]).Trim()
 }
 
 function Get-ListValues([string]$Raw) {
