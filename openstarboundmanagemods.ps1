@@ -125,7 +125,7 @@ function Resolve-Collection([string]$CollectionId) {
             return $ids
         }
     } catch {
-        Write-ModWarning "Could not refresh collection $CollectionId: $($_.Exception.Message)"
+        Write-ModWarning "Could not refresh collection ${CollectionId}: $($_.Exception.Message)"
     }
 
     if (Test-Path -LiteralPath $cache) {
@@ -186,7 +186,7 @@ function Download-Item([string]$Id) {
         & $steamcmd "+login" "+workshop_download_item" $SteamAppId $Id "validate" "+quit"
         return ($LASTEXITCODE -eq 0)
     } catch {
-        Write-ModWarning "SteamCMD could not download Workshop item $Id: $($_.Exception.Message)"
+        Write-ModWarning "SteamCMD could not download Workshop item ${Id}: $($_.Exception.Message)"
         return $false
     }
 }
